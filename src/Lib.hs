@@ -48,26 +48,26 @@ loadSettings = do
 
 constructSettings :: Option -> Config -> IO Settings
 constructSettings option config = Settings
-  <$> interactiveMaybe "put Option" (optionA option)
-  <*> interactiveMaybe "put Config" (configB config)
-  <*> interactiveMulti "put multi line text and then Ctrl+D"
-  <*> interactive "put one line text"
+  <$> interactiveMaybe "put Option" id (optionA option)
+  <*> interactiveMaybe "put Config" id (configB config)
+  <*> interactiveMulti "put multi line text and then Ctrl+D" unlines
+  <*> interactive "put one line text" id
 
-interactiveMaybe :: String -> Maybe String -> IO String
-interactiveMaybe message Nothing = interactive message
-interactiveMaybe _ (Just a) = return a
+interactiveMaybe :: String -> (String -> a) -> Maybe String -> IO a
+interactiveMaybe message f Nothing = interactive message f
+interactiveMaybe _ f (Just a) = return $ f a
 
-interactive :: String -> IO String
-interactive message = putStrLn message >> getLine
+interactive :: String -> (String -> a) -> IO a
+interactive message f = f <$> getLine <* putStrLn message
 
-interactiveMulti :: String -> IO String
-interactiveMulti message = putStrLn message >> getLines []
+interactiveMulti :: String -> ([String] -> a) -> IO a
+interactiveMulti message f = f <$> getLines [] <* putStrLn message
   where
     -- http://www.mikunimaru.com/entry/2017/11/11/174011
-    getLines :: [String] -> IO String
+    getLines :: [String] -> IO [String]
     getLines xs = do
       x <- getLine
       e <- isEOF
       if e
-        then return . unlines $ reverse (x:xs)
+        then return $ reverse (x:xs)
         else getLines (x:xs)
