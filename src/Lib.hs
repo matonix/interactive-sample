@@ -48,10 +48,14 @@ loadSettings = do
 
 constructSettings :: Option -> Config -> IO Settings
 constructSettings option config = Settings
-  <$> maybe (interactive "put Option") return (optionA option)
-  <*> maybe (interactive "put Config") return (configB config)
+  <$> interactiveMaybe "put Option" (optionA option)
+  <*> interactiveMaybe "put Config" (configB config)
   <*> interactiveMulti "put multi line text and then Ctrl+D"
   <*> interactive "put one line text"
+
+interactiveMaybe :: String -> Maybe String -> IO String
+interactiveMaybe message Nothing = interactive message
+interactiveMaybe _ (Just a) = return a
 
 interactive :: String -> IO String
 interactive message = putStrLn message >> getLine
