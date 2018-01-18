@@ -5,11 +5,11 @@
 
 module Lib where
 
+import Data.Default
+import Data.Maybe
 import Data.Reflection
 import Data.Yaml
 import Options.Generic
-import Data.Maybe
-import Data.Default
 import System.IO
 
 newtype Option = Option
@@ -65,5 +65,5 @@ interactiveMulti message = putStrLn message >> getLines []
       x <- getLine
       e <- isEOF
       if e
-        then return . concatMap ('\n':) $ reverse (x:xs)
+        then return . unlines $ reverse (x:xs)
         else getLines (x:xs)
