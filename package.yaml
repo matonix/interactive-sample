@@ -1,0 +1,30 @@
+name: interactive-with-option
+version: '0.1.0'
+category: Web
+author: Yokoyama Haruki
+maintainer: yokoyama.haruki@jp.fujitsu.com
+copyright: 2017 Yokoyama Haruki
+license: BSD3
+github: yokoyama-haruki/interactive-with-option
+
+source-dirs: src
+dependencies:
+- base >=4.7 && <5
+ghc-options:
+- -Wall
+- -threaded
+- -rtsopts
+- -with-rtsopts=-N
+
+executables:
+  interactive-with-option:
+    main: Main.hs
+    source-dirs: app
+
+tests:
+  interactive-with-option-test:
+    main: Spec.hs
+    source-dirs: test
+    dependencies:
+    - interactive-with-option
+    - hspec
