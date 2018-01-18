@@ -1,11 +1,11 @@
-name: interactive-with-option
+name: interactive-sample
 version: '0.1.0'
 category: Web
 author: maton
 maintainer: automatonix@gmail.com
-copyright: 2017 Yokoyama Haruki
+copyright: 2018 Yokoyama Haruki
 license: BSD3
-github: matonix/interactive-with-option
+github: matonix/interactive-sample
 
 source-dirs: src
 dependencies:
@@ -21,14 +21,14 @@ ghc-options:
 - -with-rtsopts=-N
 
 executables:
-  interactive-with-option:
+  interactive-sample:
     main: Main.hs
     source-dirs: app
 
 tests:
-  interactive-with-option-test:
+  interactive-sample-test:
     main: Spec.hs
     source-dirs: test
     dependencies:
-    - interactive-with-option
+    - interactive-sample
     - hspec
