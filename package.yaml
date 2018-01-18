@@ -1,15 +1,19 @@
 name: interactive-with-option
 version: '0.1.0'
 category: Web
-author: Yokoyama Haruki
-maintainer: yokoyama.haruki@jp.fujitsu.com
+author: maton
+maintainer: automatonix@gmail.com
 copyright: 2017 Yokoyama Haruki
 license: BSD3
-github: yokoyama-haruki/interactive-with-option
+github: matonix/interactive-with-option
 
 source-dirs: src
 dependencies:
 - base >=4.7 && <5
+- optparse-generic
+- yaml
+- reflection
+- data-default
 ghc-options:
 - -Wall
 - -threaded
