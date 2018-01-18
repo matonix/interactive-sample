@@ -58,10 +58,10 @@ interactiveMaybe message f Nothing = interactive message f
 interactiveMaybe _ f (Just a) = return $ f a
 
 interactive :: String -> (String -> a) -> IO a
-interactive message f = f <$> getLine <* putStrLn message
+interactive message f = f <$ putStrLn message <*> getLine
 
 interactiveMulti :: String -> ([String] -> a) -> IO a
-interactiveMulti message f = f <$> getLines [] <* putStrLn message
+interactiveMulti message f = f <$ putStrLn message <*> getLines []
   where
     -- http://www.mikunimaru.com/entry/2017/11/11/174011
     getLines :: [String] -> IO [String]
